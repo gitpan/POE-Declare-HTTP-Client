@@ -54,18 +54,44 @@ METHODS
     The "stop" method disables the web server. If the server is not running,
     this method will shortcut and do nothing.
 
-  get
-        $client->get('http://www.cpan.org/');
+  GET
+        $client->GET('http://www.cpan.org/');
 
-    The "get" method fetches a named URL via an HTTP GET.
+    The "GET" method fetches a named URL via a HTTP GET request.
 
-  post
-        $client->post('http://www.cpan.org/');
+  HEAD
+        $client->HEAD('http://www.cpan.org/');
 
-    The "get" method fetches a named URL via an HTTP POST.
+    The "HEAD" method fetches headers for a named URL via a HTTP HEAD
+    request.
+
+  POST
+        $client->POST('http://www.cpan.org/');
+
+    The "POST" method fetches a named URL via a HTTP POST request.
+
+  PUT
+        $client->PUT(
+            'http://127.0.0.1:12345/upload.txt',
+            Content => 'This is the file content',
+        );
+
+    The "PUT" method uploads content to a named URL via a HTTP PUT request.
+
+  DELETE
+        $client->DELETE('http://www.cpan.org/');
+
+    The "DELETE" method deletes a resource at a URL via a HTTP DELETE
+    request.
 
   request
-        $client->request( $request_object );
+        $client->request( $HTTP_Request );
+
+    The "request" method triggers an arbitrary HTTP request.
+
+    It takes any HTTP::Request object, and will respond with an
+    HTTP::Response object to the "ResponseEvent" message handler once it is
+    completed.
 
   running
     The boolean "running" method returns true if the client is both spawned
@@ -87,7 +113,7 @@ SEE ALSO
     POE, <http://ali.as/>
 
 COPYRIGHT
-    Copyright 2006 - 2011 Adam Kennedy.
+    Copyright 2011 Adam Kennedy.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
