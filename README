@@ -4,26 +4,15 @@ NAME
 SYNOPSIS
         # Create the web server
         my $http = POE::Declare::HTTP::Client->new(
-            Hostname => '127.0.0.1',
-            Port     => '80',
-            Handler  => sub {
-                my $server   = shift;
-                my $response = shift;
-        
-            # The request is not passed to you but is available if needed
-                my $request = $response->request;
-        
-            # Webby content generation stuff here
-                $response->code( 200 );
-                $response->header( 'Content-Type' => 'text/plain' );
-                $response->content( "Hello World!" );
-        
-            return;
-            },
+            Timeout       => 10,
+            MaxRedirect   => 7,
+            ResponseEvent => \&on_response,
+            ShutdownEvent => \&on_shutdown,
         );
         
     # Control with methods
         $http->start;
+        $http->GET('http://google.com');
         $http->stop;
 
 DESCRIPTION
